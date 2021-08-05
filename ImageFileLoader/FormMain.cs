@@ -42,25 +42,25 @@ namespace ImageFileLoader {
             var pixelFormat = bmp.PixelFormat;
             if (pixelFormat == PixelFormat.Format1bppIndexed) {
                 var palette = bmp.Palette?.Entries.Select(color => color.ToArgb()).ToArray();
-                var drawer = new BufferDrawer_1BitIndexed(palette);
+                var drawer = new BufferDrawer_1BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format4bppIndexed) {
                 var palette = bmp.Palette?.Entries.Select(color => color.ToArgb()).ToArray();
-                var drawer = new BufferDrawer_4BitIndexed(palette);
+                var drawer = new BufferDrawer_4BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format8bppIndexed) {
                 var palette = bmp.Palette?.Entries.Select(color => color.ToArgb()).ToArray();
-                var drawer = new BufferDrawer_8BitIndexed(palette);
+                var drawer = new BufferDrawer_8BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format24bppRgb)
-                return new BufferDrawer_24BitRgb();
+                return new BufferDrawer_24BppRgb();
             if (pixelFormat == PixelFormat.Format32bppRgb
                 || pixelFormat == PixelFormat.Format32bppPArgb
                 || pixelFormat == PixelFormat.Format32bppArgb)
-                return new BufferDrawer_32BitRgb();
+                return new BufferDrawer_32BppRgb();
 
             return new BufferDrawer_Unknown();
         }
@@ -68,11 +68,11 @@ namespace ImageFileLoader {
         private static ABufferDrawer BufferDrawerFromMat(MatType mt) {
             ABufferDrawer drawer = null;
             if (mt == MatType.CV_8UC1) {
-                drawer = new BufferDrawer_8BitIndexed(null);
+                drawer = new BufferDrawer_8BppIndexed(null);
             } else if (mt == MatType.CV_8UC3) {
-                drawer = new BufferDrawer_24BitRgb();
+                drawer = new BufferDrawer_24BppRgb();
             } else if (mt == MatType.CV_8UC4) {
-                drawer = new BufferDrawer_32BitRgb();
+                drawer = new BufferDrawer_32BppRgb();
             }
             if (drawer == null)
                 drawer = new BufferDrawer_Unknown();
@@ -84,25 +84,25 @@ namespace ImageFileLoader {
             var pixelFormat = fib.PixelFormat;
             if (pixelFormat == PixelFormat.Format1bppIndexed) {
                 var palette = fib.Palette?.Select(rgbq => (int)rgbq.uintValue).ToArray();
-                var drawer = new BufferDrawer_1BitIndexed(palette);
+                var drawer = new BufferDrawer_1BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format4bppIndexed) {
                 var palette = fib.Palette?.Select(rgbq => (int)rgbq.uintValue).ToArray();
-                var drawer = new BufferDrawer_4BitIndexed(palette);
+                var drawer = new BufferDrawer_4BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format8bppIndexed) {
                 var palette = fib.Palette?.Select(rgbq => (int)rgbq.uintValue).ToArray();
-                var drawer = new BufferDrawer_8BitIndexed(palette);
+                var drawer = new BufferDrawer_8BppIndexed(palette);
                 return drawer;
             }
             if (pixelFormat == PixelFormat.Format24bppRgb)
-                return new BufferDrawer_24BitRgb();
+                return new BufferDrawer_24BppRgb();
             if (pixelFormat == PixelFormat.Format32bppRgb
                 || pixelFormat == PixelFormat.Format32bppPArgb
                 || pixelFormat == PixelFormat.Format32bppArgb)
-                return new BufferDrawer_32BitRgb();
+                return new BufferDrawer_32BppRgb();
 
             return new BufferDrawer_Unknown();
         }
